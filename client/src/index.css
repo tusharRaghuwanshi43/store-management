@@ -1,0 +1,361 @@
+:root {
+  --bg: #f6f8fa;
+  --card: #ffffff;
+  --accent: #2563eb;
+  --accent-2: #10b981;
+  --muted: #6b7280;
+  --danger: #ef4444;
+  --border: #e6e9ee;
+  --shadow: 0 6px 18px rgba(16, 24, 40, 0.06);
+  --radius: 8px;
+  --max-width: 1330px;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: linear-gradient(180deg, var(--bg) 0%, #ffffff 100%);
+  color: #111827;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Layout containers */
+.container {
+  max-width: var(--max-width);
+  margin: 28px auto;
+  background: var(--card);
+  padding: 20px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+
+/* Page heading */
+.container h1 {
+  margin: 0 0 12px 0;
+  font-size: 1.5rem;
+  color: #0f172a;
+}
+
+/* Form */
+form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 10px;
+  align-items: end;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: #fff;
+  outline: none;
+  transition: box-shadow .12s ease, border-color .12s ease;
+  font-size: 0.95rem;
+}
+
+input:focus {
+  border-color: rgba(37, 99, 235, 0.9);
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.07);
+}
+
+form button {
+  padding: 10px 14px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: transform .08s ease, box-shadow .08s ease, opacity .08s ease;
+  box-shadow: 0 6px 14px rgba(37, 99, 235, 0.12);
+  justify-self: start;
+}
+
+form button:hover {
+  transform: translateY(-1px);
+  opacity: .98;
+}
+
+/* Table */
+.table-container {
+  overflow: auto;
+  margin-top: 14px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 720px;
+}
+
+.table thead th {
+  text-align: left;
+  padding: 12px 14px;
+  font-size: 0.875rem;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, #fafafa, #ffffff);
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.table tbody td {
+  padding: 12px 14px;
+  vertical-align: middle;
+  border-bottom: 1px dashed #f1f3f7;
+  font-size: 0.95rem;
+}
+
+.table tbody tr:nth-child(even) {
+  background: #fbfdff;
+}
+
+/* Small index column */
+.table tbody td:first-child {
+  width: 48px;
+  color: var(--muted);
+}
+
+/* Price formatting */
+.table tbody td.price {
+  font-weight: 600;
+  color: #0f172a;
+}
+
+/* Actions */
+.action-btn {
+  padding: 6px 10px;
+  margin-right: 6px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.edit_btn {
+  background: linear-gradient(90deg, rgba(16, 185, 129, 0.08), rgba(16, 185, 129, 0.04));
+  color: var(--accent-2);
+  border-color: rgba(16, 185, 129, 0.15);
+}
+
+.delete_btn {
+  background: linear-gradient(90deg, rgba(239, 68, 68, 0.06), rgba(239, 68, 68, 0.03));
+  color: var(--danger);
+  border-color: rgba(239, 68, 68, 0.12);
+}
+
+/* Header for product list */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.header h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  color: #0f172a;
+}
+
+/* Add these styles before the media queries */
+
+.filters-container {
+  margin-bottom: 20px;
+  padding: 16px;
+  background: #f8fafc;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
+.filters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.filter-input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: white;
+  font-size: 0.9rem;
+}
+
+.filter-input:focus {
+  border-color: var(--accent);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* Responsive: tablet and below */
+@media (max-width: 900px) {
+  .container {
+    margin: 20px auto;
+    padding: 16px;
+  }
+
+  form {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 8px;
+  }
+
+  form button {
+    justify-self: stretch;
+  }
+
+  .table {
+    min-width: 0;
+  }
+}
+
+/* Responsive: mobile - convert table to stacked cards */
+@media (max-width: 780px) {
+  .filters-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  
+  .filters-container {
+    padding: 12px;
+    margin-bottom: 16px;
+  }
+  .container {
+    margin: 12px;
+    padding: 12px;
+    border-radius: 10px;
+  }
+
+  form {
+    grid-template-columns: 1fr;
+  }
+
+  form button {
+    width: 100%;
+  }
+
+  /* hide table headers and make each row a card */
+  .table thead {
+    display: none;
+  }
+
+  .table {
+    border: none;
+  }
+
+  .table tbody tr {
+    display: block;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 12px;
+    margin-bottom: 12px;
+    box-shadow: 0 4px 12px rgba(2, 6, 23, 0.04);
+  }
+
+  .table tbody td {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: none;
+    font-size: 0.95rem;
+  }
+
+  /* labels on the left (using nth-child mapping) */
+  .table tbody td:nth-child(1)::before {
+    content: "#";
+    color: var(--muted);
+    margin-right: 8px;
+    font-weight: 600;
+  }
+
+  .table tbody td:nth-child(2)::before {
+    content: "SKU";
+    color: var(--muted);
+    margin-right: 8px;
+    font-weight: 600;
+  }
+
+  .table tbody td:nth-child(3)::before {
+    content: "Name";
+    color: var(--muted);
+    margin-right: 8px;
+    font-weight: 600;
+  }
+
+  .table tbody td:nth-child(4)::before {
+    content: "Category";
+    color: var(--muted);
+    margin-right: 8px;
+    font-weight: 600;
+  }
+
+  .table tbody td:nth-child(5)::before {
+    content: "Price";
+    color: var(--muted);
+    margin-right: 8px;
+    font-weight: 600;
+  }
+
+  .table tbody td:nth-child(6)::before {
+    content: "Stock";
+    color: var(--muted);
+    margin-right: 8px;
+    font-weight: 600;
+  }
+
+  .table tbody td:nth-child(7)::before {
+    content: "Actions";
+    color: var(--muted);
+    margin-right: 8px;
+    font-weight: 600;
+  }
+
+  /* ensure values align right and wrap if needed */
+  .table tbody td span.value {
+    margin-left: 8px;
+    white-space: normal;
+    text-align: right;
+  }
+
+  /* actions become full-width row */
+  .table tbody td:last-child {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+
+  .action-btn {
+    margin: 0;
+    padding: 8px 10px;
+    flex: 0 0 auto;
+  }
+
+  /* reduce font sizes slightly for tight screens */
+  .container h1 {
+    font-size: 1.25rem;
+  }
+
+  .header h3 {
+    font-size: 1rem;
+  }
+}
+
+/* Tiny helper */
+.muted {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
