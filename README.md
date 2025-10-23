@@ -1,22 +1,47 @@
-# Store-Management
-Store-Management is a web application developed using the MERN (MongoDB, Express.js, React, Node.js) stack. It provides a simple yet effective system for managing inventory items, customers and store operations — including adding, updating, deleting entries, and filtering/searching through data.
+# 🏪 Store-Management
+**Store-Management** is a web application developed using the MERN stack.  
+It provides a simple yet efficient solution for managing inventory items, customers, and store operations — including adding, updating, deleting, and searching records.
 
-# Features
-1. Create, Read, Update, and Delete (CRUD) operations for Items, Customers, and Inventory.
-2. Filter/search functionality to quickly locate records by various criteria.
-3. Responsive front-end built with React.
-4. RESTful APIs built with Express and Node.js.
-5. Data persistence using MongoDB.
-6. Modular, clean codebase suitable for extension or customization.
+---
 
-# Tech Stack
-Front-end: React, CSS (or styled components)
-Back-end: Node.js, Express.js
-Database: MongoDB (e.g., Mongo-Atlas or local)
-Development Tools: VS Code, Git, npm/yarn
+## ✨ Features
 
-# Installation
-Clone the repo
+- ✅ CRUD operations for **Items**, **Customers**, and **Inventory**
+- 🔍 Filter/Search functionality
+- 💻 Responsive UI built with React
+- ⚙️ RESTful API built using Express and Node.js
+- 🗄️ Data persistence using MongoDB
+- 🧩 Clean, modular structure for easy expansion
+
+---
+
+## 🧰 Tech Stack
+
+| Layer | Technology |
+|-------|-------------|
+| Front-end | React.js, CSS |
+| Back-end | Node.js, Express.js |
+| Database | MongoDB |
+| Tools | Git, VS Code, npm/yarn |
+
+---
+
+## ⚙️ Getting Started
+
+### 🧩 Prerequisites
+
+Ensure you have installed:
+- Node.js (v14+)
+- npm or yarn
+- MongoDB (local or cloud, e.g., MongoDB Atlas)
+- Git
+
+---
+
+### 📦 Installation
+
+```bash
+# Clone the repository
 git clone https://github.com/tusharRaghuwanshi43/store-management.git
 cd store-management
 
@@ -27,12 +52,3 @@ npm install
 # Install client dependencies
 cd ../client
 npm install
-
-Running the App
-# In one terminal: (server)
-cd server
-npm run dev           # or `npm start` if configured
-
-# In another terminal: (client)
-cd client
-npm run start
