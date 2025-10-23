@@ -14,7 +14,7 @@ const App = () => {
   const [itemVariant, setItemVariant] = useState({ edit: true, id: "" });
 
   // API base
-  const BASE_URL = "http://localhost:3000/api";
+  const BASE_URL = "http://localhost:5000/api";
   const getItems = `${BASE_URL}/products`;
   const postItem = `${BASE_URL}/addProduct`;
 
@@ -32,7 +32,7 @@ const App = () => {
   //   fetchItems();
   // }, []);
 
-    // Add these new state variables after other useState declarations
+  // Add these new state variables after other useState declarations
   const [filters, setFilters] = useState({
     search: '',
     category: '',
