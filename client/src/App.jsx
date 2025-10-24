@@ -18,20 +18,6 @@ const App = () => {
   const getItems = `${BASE_URL}/products`;
   const postItem = `${BASE_URL}/addProduct`;
 
-  // // fetch products
-  // const fetchItems = async () => {
-  //   try {
-  //     const response = await axios.get(getItems);
-  //     setItems(response.data.reverse());
-  //   } catch (error) {
-  //     console.error("Error fetching products:", error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   fetchItems();
-  // }, []);
-
   // Add these new state variables after other useState declarations
   const [filters, setFilters] = useState({
     search: '',
