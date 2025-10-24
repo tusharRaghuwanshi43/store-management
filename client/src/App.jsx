@@ -14,7 +14,7 @@ const App = () => {
   const [itemVariant, setItemVariant] = useState({ edit: true, id: "" });
 
   // API base
-  const BASE_URL = "http://localhost:5000/api";
+  const BASE_URL = "https://store-management-eosin.vercel.app/";
   const getItems = `${BASE_URL}/products`;
   const postItem = `${BASE_URL}/addProduct`;
 
