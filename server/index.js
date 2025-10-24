@@ -12,7 +12,14 @@ const PORT = process.env.PORT || 3000;
 connectDB();
 
 // Enable CORS for all routes
-app.use(cors());
+app.use(cors({
+  origin: [
+    "http://localhost:5173",           // for local dev
+    "https://store-mgmt.netlify.app/" // replace with your real Netlify domain
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));
 
 // Middleware
 app.use(express.json());
