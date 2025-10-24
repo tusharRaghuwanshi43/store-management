@@ -14,9 +14,10 @@ const App = () => {
   const [itemVariant, setItemVariant] = useState({ edit: true, id: "" });
 
   // API base
-  const BASE_URL = "https://store-management-eosin.vercel.app/";
-  const getItems = `${BASE_URL}/products`;
-  const postItem = `${BASE_URL}/addProduct`;
+const BASE_URL = "https://store-management-eosin.vercel.app/api";
+const getItems = `${BASE_URL}/products`;
+const postItem = `${BASE_URL}/addProduct`;
+
 
   // Add these new state variables after other useState declarations
   const [filters, setFilters] = useState({
