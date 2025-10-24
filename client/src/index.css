@@ -321,6 +321,9 @@ form button:hover {
     color: var(--muted);
     margin-right: 8px;
     font-weight: 600;
+    flex: 1;
+    text-align: left;
+    justify-content: space-between; /* Change from flex-end */
   }
 
   /* ensure values align right and wrap if needed */
