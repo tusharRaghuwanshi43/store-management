@@ -24,6 +24,10 @@ app.use('/api', apiRoutes);
 app.options('*', cors());
 
 // Start the server
+app.get('/', (req, res) => {
+  res.send('Store Management API is running')
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
