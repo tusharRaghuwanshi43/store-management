@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
+
 const App = () => {
   const [items, setItems] = useState([]);
   const [newItem, setNewItem] = useState({
@@ -202,7 +203,7 @@ const App = () => {
         <div className="mb-8 rounded-xl bg-white/80 shadow-lg p-4 flex flex-col md:flex-row items-center justify-between">
         <div className="flex justify-center mb-8">
           <img
-            src="src/assets/360_F_550146337_826DHUXoFx18MRTMUauX3fyRw9R7S1BO.jpg"
+            src="public/360_F_550146337_826DHUXoFx18MRTMUauX3fyRw9R7S1BO.jpg"
             alt="Store Management Illustration"
             className="rounded-2xl shadow-xl w-full max-w-2xl object-contain"
             style={{ background: "#F8FAFC" }}
