@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-
 const App = () => {
   const [items, setItems] = useState([]);
   const [newItem, setNewItem] = useState({
@@ -200,74 +199,83 @@ const App = () => {
         </div>
 
         {/* Add/Update Product Form */}
-        <div className="mb-8 rounded-xl bg-white/80 shadow-lg p-4 flex flex-col md:flex-row items-center justify-between">
-        <div className="flex justify-center mb-8">
-          <img
-            src="/360_F_550146337_826DHUXoFx18MRTMUauX3fyRw9R7S1BO.jpg"
-            alt="Store Management Illustration"
-            className="rounded-2xl shadow-xl w-full max-w-2xl object-contain"
-            style={{ background: "#F8FAFC" }}
-          />
-        </div>
-          <h1 className="text-3xl font-bold text-purple-700 mb-4 md:mb-0">Store Management</h1>
-          <form
-            onSubmit={handleAddItem}
-            className="flex flex-wrap gap-2 items-center"
-            autoComplete="off"
-          >
-            <input
-              type="text"
-              placeholder="Product name"
-              autoComplete="off"
-              name="name"
-              value={newItem.name}
-              onChange={handleInputChange}
-              className="rounded-lg border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-indigo-400"
+        {/* Add/Update Product Block */}
+        <div className="mb-8 rounded-xl bg-white/80 shadow-lg p-8 flex flex-col md:flex-row items-center justify-center gap-10">
+
+          {/* Illustration Section */}
+          <div className="w-full md:w-1/2 flex justify-center items-center">
+            <img
+              src="/store.jpg"   // <-- make sure this path matches your actual public assets folder
+              alt="Store Management Illustration"
+              className="rounded-2xl shadow-xl w-full max-w-md object-contain bg-white"
+              style={{ background: "#F8FAFC" }}
             />
-            <input
-              type="text"
-              placeholder="SKU"
+          </div>
+
+          {/* Heading and Form */}
+          <div className="w-full md:w-1/2 flex flex-col justify-center items-center">
+            <h1 className="text-4xl font-bold text-purple-700 mb-8 text-center">
+              Store Management
+            </h1>
+            <form
+              onSubmit={handleAddItem}
+              className="flex flex-col gap-4 w-full max-w-sm"
               autoComplete="off"
-              name="sku"
-              value={newItem.sku}
-              onChange={handleInputChange}
-              className="rounded-lg border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-indigo-400"
-            />
-            <input
-              type="number"
-              placeholder="Price"
-              autoComplete="off"
-              name="price"
-              value={newItem.price}
-              onChange={handleInputChange}
-              step="0.01"
-              className="rounded-lg border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-pink-400"
-            />
-            <input
-              type="number"
-              placeholder="Stock"
-              autoComplete="off"
-              name="stock"
-              value={newItem.stock}
-              onChange={handleInputChange}
-              className="rounded-lg border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-purple-400"
-            />
-            <input
-              type="text"
-              placeholder="Category (optional)"
-              autoComplete="off"
-              name="category"
-              value={newItem.category}
-              onChange={handleInputChange}
-              className="rounded-lg border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-indigo-400"
-            />
-            <button
-              type="submit"
-              className="bg-gradient-to-r from-purple-500 via-pink-500 to-indigo-500 text-white font-semibold px-6 py-2 rounded-lg shadow hover:scale-105 transition"
             >
-              {itemBtn}
-            </button>
-          </form>
+              <input
+                type="text"
+                placeholder="Product name"
+                autoComplete="off"
+                name="name"
+                value={newItem.name}
+                onChange={handleInputChange}
+                className="rounded-lg border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-indigo-400"
+              />
+              <input
+                type="text"
+                placeholder="SKU"
+                autoComplete="off"
+                name="sku"
+                value={newItem.sku}
+                onChange={handleInputChange}
+                className="rounded-lg border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-indigo-400"
+              />
+              <input
+                type="number"
+                placeholder="Price"
+                autoComplete="off"
+                name="price"
+                value={newItem.price}
+                onChange={handleInputChange}
+                step="0.01"
+                className="rounded-lg border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-pink-400"
+              />
+              <input
+                type="number"
+                placeholder="Stock"
+                autoComplete="off"
+                name="stock"
+                value={newItem.stock}
+                onChange={handleInputChange}
+                className="rounded-lg border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-purple-400"
+              />
+              <input
+                type="text"
+                placeholder="Category (optional)"
+                autoComplete="off"
+                name="category"
+                value={newItem.category}
+                onChange={handleInputChange}
+                className="rounded-lg border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-indigo-400"
+              />
+              <button
+                type="submit"
+                className="bg-gradient-to-r from-purple-500 via-pink-500 to-indigo-500 text-white font-semibold px-8 py-3 rounded-lg shadow hover:scale-105 transition w-full"
+              >
+                {itemBtn}
+              </button>
+            </form>
+          </div>
         </div>
 
         {/* Products Listing Table */}
@@ -320,6 +328,11 @@ const App = () => {
               </tbody>
             </table>
           </div>
+        </div>
+      </div>
+      <div className="w-full flex justify-center my-8">
+        <div className="bg-purple-100 text-purple-700 rounded-xl px-4 py-2 shadow-sm font-medium text-center max-w-md">
+          For the best experience, we recommend viewing this site on a desktop device.
         </div>
       </div>
     </div>
