@@ -1,5 +1,5 @@
 if (process.env.NODE_ENV !== "production") {
-require("dotenv").config();
+    require("dotenv").config();
 }
 
 const express = require("express");
@@ -23,7 +23,23 @@ app.use("/api", apiRoutes);
 app.use("/api/auth", authRoutes);
 
 // Preflight
+const allowedOrigins = [
+    "https://store-mgmt.netlify.app",
+    "http://localhost:5173" // optional, for local dev
+];
+
+app.use(cors({
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error("Not allowed by CORS"));
+        }
+    },
+    credentials: true,
+}));
 app.options("*", cors());
+
 
 // Start server
 app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
