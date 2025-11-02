@@ -16,35 +16,42 @@ const authRoutes = require("./routes/auth");
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Connect to MongoDB
-connectDB();
+// CORS config — apply before routes so OPTIONS/preflight get handled
+const allowedOrigins = [
+    "https://store-mgmt.netlify.app",
+    "http://localhost:5173",
+    "https://store-management-eosin.vercel.app" // allow your deployed server if needed
+];
 
-// Enable CORS
-app.use(cors());
+const corsOptions = {
+    origin: function (origin, callback) {
+        // allow requests with no origin (like server-to-server or curl)
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.includes(origin)) {
+            return callback(null, true);
+        }
+        callback(new Error("Not allowed by CORS"));
+    },
+    credentials: true,
+    optionsSuccessStatus: 204
+};
+
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions));
+
+// Body parser
 app.use(express.json());
+
+// Connect to MongoDB (safe to call now)
+connectDB();
 
 // Routes
 app.use("/api", apiRoutes);
 app.use("/api/auth", authRoutes);
 
-// Preflight
-const allowedOrigins = [
-    "https://store-mgmt.netlify.app",
-    "http://localhost:5173" // optional, for local dev
-];
-
-app.use(cors({
-    origin: function (origin, callback) {
-        if (!origin || allowedOrigins.includes(origin)) {
-            callback(null, true);
-        } else {
-            callback(new Error("Not allowed by CORS"));
-        }
-    },
-    credentials: true,
-}));
-app.options("*", cors());
-
-
-// Start server
-app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
+// Start server when running locally, but export app for Vercel serverless
+if (require.main === module) {
+    app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
+} else {
+    module.exports = app;
+}
