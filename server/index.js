@@ -2,6 +2,11 @@ if (process.env.NODE_ENV !== "production") {
     require("dotenv").config();
 }
 
+console.log("🔍 Loaded Environment Variables:");
+console.log("MONGO_URI:", !!process.env.MONGO_URI);
+console.log("JWT_SECRET:", !!process.env.JWT_SECRET);
+console.log("NODE_ENV:", process.env.NODE_ENV);
+
 const express = require("express");
 const cors = require("cors");
 const connectDB = require("./config/db");
