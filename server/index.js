@@ -1,31 +1,26 @@
-// server.js
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const connectDB = require('./config/db');
-const apiRoutes = require('./routes/api');
-const authRoutes = require('./routes/auth');
+const connectDB = require('../config/db'); // change path for api folder
+const apiRoutes = require('../routes/api');
+const authRoutes = require('../routes/auth');
 
 const app = express();
-const PORT = process.env.PORT || 5000;  
 
-// Connect to MongoDB
+// Connect to MongoDB (make sure your db connection code is friendly for serverless)
 connectDB();
 
 // Enable CORS for all routes
 app.use(cors());
-
-// Middleware
 app.use(express.json());
 
 // API routes
 app.use('/api', apiRoutes);
 app.use('/api/auth', authRoutes);
 
-// Handle preflight requests for all routes
+// Preflight for all
 app.options('*', cors());
 
-// Start the server
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
+// IMPORTANT: DO NOT CALL app.listen!
+// Export the app for Vercel serverless
+module.exports = app;
