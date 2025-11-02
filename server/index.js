@@ -17,10 +17,11 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // CORS config — apply before routes so OPTIONS/preflight get handled
+// ...existing code...
 const allowedOrigins = [
     "https://store-mgmt.netlify.app",
     "http://localhost:5173",
-    "https://store-management-eosin.vercel.app/" // allow your deployed server if needed
+    "https://store-management-eosin.vercel.app" // <-- removed trailing slash
 ];
 
 const corsOptions = {
@@ -39,6 +40,25 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.options("*", cors(corsOptions));
 
+// add an explicit middleware to ensure preflight always returns proper headers for allowed origins
+app.use((req, res, next) => {
+    const origin = req.headers.origin;
+    // debug log for deployment troubleshooting
+    console.log("Incoming Origin:", origin, "Method:", req.method, "Path:", req.path);
+
+    if (origin && allowedOrigins.includes(origin)) {
+        res.header("Access-Control-Allow-Origin", origin);
+        res.header("Access-Control-Allow-Credentials", "true");
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+        res.header("Access-Control-Allow-Methods", "GET,POST,PUT,PATCH,DELETE,OPTIONS");
+    }
+
+    if (req.method === "OPTIONS") {
+        return res.sendStatus(204);
+    }
+    next();
+});
+// ...existing code...
 // Body parser
 app.use(express.json());
 
