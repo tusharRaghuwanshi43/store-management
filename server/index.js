@@ -1,38 +1,29 @@
-// server.js
-require('dotenv').config();
-const express = require('express');
-const cors = require('cors');
-const connectDB = require('./config/db');
-const apiRoutes = require('./routes/api');
-const authRoutes = require('./routes/auth');
+if (process.env.NODE_ENV !== "production") {
+require("dotenv").config();
+}
 
+const express = require("express");
+const cors = require("cors");
+const connectDB = require("./config/db");
+const apiRoutes = require("./routes/api");
+const authRoutes = require("./routes/auth");
 
 const app = express();
-const PORT = process.env.PORT || 5000;  
-
+const PORT = process.env.PORT || 5000;
 
 // Connect to MongoDB
 connectDB();
 
-
-// Enable CORS for all routes
+// Enable CORS
 app.use(cors());
-
-
-// Middleware
 app.use(express.json());
 
+// Routes
+app.use("/api", apiRoutes);
+app.use("/api/auth", authRoutes);
 
-// API routes
-app.use('/api', apiRoutes);
-app.use('/api/auth', authRoutes);
+// Preflight
+app.options("*", cors());
 
-
-// Handle preflight requests for all routes
-app.options('*', cors());
-
-
-// Start the server
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
+// Start server
+app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
