@@ -20,7 +20,7 @@ const PORT = process.env.PORT || 5000;
 const allowedOrigins = [
     "https://store-mgmt.netlify.app",
     "http://localhost:5173",
-    "https://store-management-eosin.vercel.app/api" // allow your deployed server if needed
+    "https://store-management-eosin.vercel.app/" // allow your deployed server if needed
 ];
 
 const corsOptions = {
