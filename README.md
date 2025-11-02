@@ -51,27 +51,27 @@ git clone [https://github.com/tusharRaghuwanshi43/store-management.git](https://
 
 # 2. Navigate to the project directory
 cd store-management
+```
+###  3. Backend Setup (Server)
 
-## Backend Setup (Server)
+```bash
 # 1. Go to the server directory
 cd server
 
 # 2. Install backend dependencies
 npm install
 
-# 3. Create a .env file in the /server directory
-#    (You must add your own values)
-touch .env
-
-# 4. Add the following environment variables to your .env file:
+# 3. Add the following environment variables to your .env file:
 MONGODB_URI=your_mongodb_connection_string
 PORT=5000
 JWT_SECRET=your_super_secret_key_for_jwt
 
-# 5. Start the backend server
+# 4. Start the backend server
 npm start
+```
+### 4. Frontend Setup (Client)
 
-## Frontend Setup (Client)
+```bash
 # 1. Open a NEW terminal and go to the client directory
 #    (from the root 'store-management' folder)
 cd client
