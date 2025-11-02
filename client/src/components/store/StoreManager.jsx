@@ -16,7 +16,7 @@ const StoreManager = () => {
   const [toastMessage, setToastMessage] = useState('');
   const [toastType, setToastType] = useState('success');
 
-  const BASE_URL = 'http://localhost:5000/api';
+  const BASE_URL = 'https://store-management-eosin.vercel.app/api';
   const token = localStorage.getItem('token');
   const config = { headers: { Authorization: `Bearer ${token}` } };
 
