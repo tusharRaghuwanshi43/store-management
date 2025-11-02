@@ -1,77 +1,38 @@
-if (process.env.NODE_ENV !== "production") {
-    require("dotenv").config();
-}
-
-console.log("🔍 Loaded Environment Variables:");
-console.log("MONGO_URI:", !!process.env.MONGO_URI);
-console.log("JWT_SECRET:", !!process.env.JWT_SECRET);
-console.log("NODE_ENV:", process.env.NODE_ENV);
-
-const express = require("express");
-const cors = require("cors");
-const connectDB = require("./config/db");
-const apiRoutes = require("./routes/api");
-const authRoutes = require("./routes/auth");
+// server.js 
+require('dotenv').config();
+const express = require('express');
+const cors = require('cors');
+const connectDB = require('./config/db');
+const apiRoutes = require('./routes/api');
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 
-// CORS config — apply before routes so OPTIONS/preflight get handled
-// ...existing code...
-const allowedOrigins = [
-    "https://store-mgmt.netlify.app",
-    "http://localhost:5173",
-    "https://store-management-eosin.vercel.app" // <-- removed trailing slash
-];
-
-const corsOptions = {
-    origin: function (origin, callback) {
-        // allow requests with no origin (like server-to-server or curl)
-        if (!origin) return callback(null, true);
-        if (allowedOrigins.includes(origin)) {
-            return callback(null, true);
-        }
-        callback(new Error("Not allowed by CORS"));
-    },
-    credentials: true,
-    optionsSuccessStatus: 204
-};
-
-app.use(cors(corsOptions));
-app.options("*", cors(corsOptions));
-
-// add an explicit middleware to ensure preflight always returns proper headers for allowed origins
-app.use((req, res, next) => {
-    const origin = req.headers.origin;
-    // debug log for deployment troubleshooting
-    console.log("Incoming Origin:", origin, "Method:", req.method, "Path:", req.path);
-
-    if (origin && allowedOrigins.includes(origin)) {
-        res.header("Access-Control-Allow-Origin", origin);
-        res.header("Access-Control-Allow-Credentials", "true");
-        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-        res.header("Access-Control-Allow-Methods", "GET,POST,PUT,PATCH,DELETE,OPTIONS");
-    }
-
-    if (req.method === "OPTIONS") {
-        return res.sendStatus(204);
-    }
-    next();
-});
-// ...existing code...
-// Body parser
-app.use(express.json());
-
-// Connect to MongoDB (safe to call now)
+// Connect to MongoDB
 connectDB();
 
-// Routes
-app.use("/api", apiRoutes);
-app.use("/api/auth", authRoutes);
+// Enable CORS for Netlify + local
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://store-mgmt.netlify.app"
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));
 
-// Start server when running locally, but export app for Vercel serverless
-if (require.main === module) {
-    app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
-} else {
-    module.exports = app;
-}
+// Middleware
+app.use(express.json());
+
+// API routes
+app.use('/api', apiRoutes);
+
+// Root endpoint
+app.get('/', (req, res) => {
+  res.send('Store Management API is running');
+});
+
+// Start the server
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
