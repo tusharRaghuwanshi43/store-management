@@ -40,8 +40,8 @@ const handleChange = (e) => {
     setTimeout(() => setMessage(false), 5050); // Clear message after 5 seconds
     try {
       const url = isRegister
-        ? "http://localhost:5000/api/auth/signup"
-        : "http://localhost:5000/api/auth/login";
+        ? "https://store-management-eosin.vercel.app/api/auth/signup"
+        : "https://store-management-eosin.vercel.app/api/auth/login";     //http://localhost:5000
       const res = await axios.post(url, form);
 
       const token = res.data.token;
