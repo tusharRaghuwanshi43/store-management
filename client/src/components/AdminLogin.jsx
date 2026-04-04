@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { jwtDecode } from "jwt-decode"; 
-
+import { jwtDecode } from "jwt-decode";
 
 const AdminLogin = () => {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -12,7 +11,6 @@ const AdminLogin = () => {
   const [messageType, setMessageType] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
-
 
   // Show denied access message if redirected here from PrivateRoute
   useEffect(() => {
@@ -24,24 +22,27 @@ const AdminLogin = () => {
     }
   }, []);
 
-const handleChange = (e) => {
-  const { name, value } = e.target;
-  setForm(prev => ({
-    ...prev,
-    [name]: name === 'email' ? value.trim() : value,
-  }));
-};
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm(prev => ({
+      ...prev,
+      [name]: name === 'email' ? value.trim() : value,
+    }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     setMessage("");
-    setMessageType(""); 
-    setTimeout(() => setMessage(false), 5050); // Clear message after 5 seconds
+    setMessageType("");
+
+    // Clear message after 5 seconds (Fixed to set empty string instead of boolean)
+    setTimeout(() => setMessage(""), 5050);
+
     try {
       const url = isRegister
         ? "https://store-management-eosin.vercel.app/api/auth/signup"
-        : "https://store-management-eosin.vercel.app/api/auth/login";     //http://localhost:5000
+        : "https://store-management-eosin.vercel.app/api/auth/login";
       const res = await axios.post(url, form);
 
       const token = res.data.token;
@@ -64,6 +65,7 @@ const handleChange = (e) => {
           setIsSubmitting(false);
           return;
         }
+
         if (payload.role !== "admin") {
           setMessage(
             "Access denied: Admins only. Contact owner for admin access."
@@ -100,49 +102,71 @@ const handleChange = (e) => {
         <h2 className="text-3xl font-bold text-center text-purple-600 mb-8 tracking-tight drop-shadow-sm">
           {isRegister ? "Create Account" : "Sign In"}
         </h2>
+
         {message && (
           <div
-            className={`mb-6 px-5 py-3 rounded-xl text-center font-semibold ${
-              messageType === "success"
+            className={`mb-6 px-5 py-3 rounded-xl text-center font-semibold ${messageType === "success"
                 ? "bg-green-100 text-green-800"
                 : "bg-red-100 text-red-800"
-            } shadow`}
+              } shadow`}
             role="alert"
           >
             {message}
           </div>
         )}
+
         <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-      <input
-        type="text"
-        name="email"
-        placeholder="Email"
-        value={form.email}
-        onChange={handleChange}
-        required
-        autoComplete="email"
-        className="w-full rounded-lg border border-gray-200 bg-purple-50/40 px-4 py-3 text-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-purple-200 transition"
-      />
-  <input
-    type={showPassword ? "text" : "password"}
-    name="password"
-    placeholder="Password"
-    value={form.password}
-    onChange={handleChange}
-    required
-    autoComplete="current-password"
-    className="w-full rounded-lg border border-gray-200 bg-purple-50/40 px-4 py-3 pr-12 text-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-purple-400 transition"
-  />
-      <button
-        type="submit"
-        disabled={isSubmitting}
-        className={`w-full rounded-lg bg-gradient-to-r from-indigo-200 via-purple-200 to-pink-200 text-purple-700 font-semibold py-3 shadow hover:bg-gradient-to-r hover:from-indigo-300 hover:to-pink-100 transition text-lg ${
-          isSubmitting ? "opacity-70 cursor-not-allowed" : ""
-        }`}
-      >
-        {isRegister ? "Sign Up" : "Sign In"}
-      </button>
-    </form>
+          <input
+            type="text"
+            name="email"
+            placeholder="Email"
+            value={form.email}
+            onChange={handleChange}
+            required
+            autoComplete="email"
+            className="w-full rounded-lg border border-gray-200 bg-purple-50/40 px-4 py-3 text-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-purple-200 transition"
+          />
+          <input
+            type={showPassword ? "text" : "password"}
+            name="password"
+            placeholder="Password"
+            value={form.password}
+            onChange={handleChange}
+            required
+            autoComplete="current-password"
+            className="w-full rounded-lg border border-gray-200 bg-purple-50/40 px-4 py-3 pr-12 text-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-purple-400 transition"
+          />
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className={`w-full rounded-lg bg-gradient-to-r from-indigo-200 via-purple-200 to-pink-200 text-purple-700 font-semibold py-3 shadow hover:bg-gradient-to-r hover:from-indigo-300 hover:to-pink-100 transition text-lg ${isSubmitting ? "opacity-70 cursor-not-allowed" : ""
+              }`}
+          >
+            {isRegister ? "Sign Up" : "Sign In"}
+          </button>
+        </form>
+
+        {/* Demo Account Component - Only visible during Sign In */}
+        {!isRegister && (
+          <div className="mt-6 p-4 rounded-xl bg-purple-50/50 border border-purple-100 text-sm text-gray-600 shadow-sm transition-all">
+            <p className="font-semibold text-purple-700 mb-3 text-center">Demo Account Access</p>
+            <div className="flex flex-col gap-2">
+              <div className="flex justify-between items-center">
+                <span className="font-medium">Email:</span>
+                <span className="font-mono bg-white px-3 py-1 rounded-md border border-gray-100 shadow-sm text-gray-800 select-all">
+                  demo@example.com
+                </span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="font-medium">Password:</span>
+                <span className="font-mono bg-white px-3 py-1 rounded-md border border-gray-100 shadow-sm text-gray-800 select-all">
+                  Demo@12345
+                </span>
+              </div>
+            </div>
+          </div>
+        )}
+
         <div className="mt-7 text-center text-gray-700 font-semibold text-base">
           {isRegister ? "Already have an account? " : "New here? "}
           <button
